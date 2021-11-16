@@ -73,12 +73,7 @@ export function MakePrediction() {
 
   return (
     <Box sx={{ m: 1, position: "absolute", bottom: "2rem", right: "4rem" }}>
-      <Fab
-        aria-label="predict"
-        color="primary"
-        disabled={loading || initModel == null}
-        onClick={handleButtonClick}
-      >
+      <Fab aria-label="predict" color="primary" onClick={handleButtonClick}>
         <PredictionIcon />
       </Fab>
       {(loading || initModel == null) && (
