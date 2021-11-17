@@ -67,6 +67,16 @@ function getCoordinates(x, y, zoom, center) {
   ];
 }
 
+export const viewportAtom = atom((get) => {
+  const center = get(centerAtom);
+  const zoom = get(zoomAtom);
+
+  const [south, west] = getCoordinates(0, 0, zoom, center);
+  const [north, east] = getCoordinates(1, 1, zoom, center);
+
+  return { north, south, east, west };
+});
+
 const predictionResultAtom = atom({
   loading: false,
   error: null,

@@ -4,7 +4,7 @@ import {
   LoadScript,
   Rectangle,
 } from "@react-google-maps/api";
-import { centerAtom, predictionAtom, zoomAtom } from "./atoms";
+import { centerAtom, predictionAtom, viewportAtom, zoomAtom } from "./atoms";
 import { useRef, useState } from "react";
 
 import { useAtom } from "jotai";
@@ -32,6 +32,7 @@ function Map(props) {
   const searchRef = useRef(null);
   const [libraries] = useState(["places"]);
   const [{ loading, bounds }] = useAtom(predictionAtom);
+  const [viewport] = useAtom(viewportAtom);
 
   const handleMapLoad = (map) => {
     map.mapTypeId = "satellite";
@@ -117,6 +118,16 @@ function Map(props) {
               bounds={bound}
             />
           ))}
+        <Rectangle
+          options={{
+            strokeColor: "#FFFFFF",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#FFFFFF",
+            fillOpacity: 0.15,
+          }}
+          bounds={viewport}
+        />
       </GoogleMap>
     </LoadScript>
   );
