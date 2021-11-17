@@ -1,5 +1,10 @@
-import { Autocomplete, GoogleMap, LoadScript } from "@react-google-maps/api";
-import { centerAtom, zoomAtom } from "./atoms";
+import {
+  Autocomplete,
+  GoogleMap,
+  LoadScript,
+  Rectangle,
+} from "@react-google-maps/api";
+import { centerAtom, predictionAtom, zoomAtom } from "./atoms";
 import { useRef, useState } from "react";
 
 import { useAtom } from "jotai";
@@ -26,6 +31,7 @@ function Map(props) {
   const mapRef = useRef(null);
   const searchRef = useRef(null);
   const [libraries] = useState(["places"]);
+  const [{ loading, bounds }] = useAtom(predictionAtom);
 
   const handleMapLoad = (map) => {
     map.mapTypeId = "satellite";
@@ -92,6 +98,24 @@ function Map(props) {
             }}
           />
         </Autocomplete>
+        {!loading &&
+          bounds != null &&
+          bounds.map(({ cluster, ...bound }) => (
+            <Rectangle
+              options={{
+                strokeColor: ["#333333", "#127852", "#A7002D", "#A3A901"][
+                  cluster
+                ],
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: ["#333333", "#127852", "#A7002D", "#A3A901"][
+                  cluster
+                ],
+                fillOpacity: 0.35,
+              }}
+              bounds={bound}
+            />
+          ))}
       </GoogleMap>
     </LoadScript>
   );

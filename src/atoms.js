@@ -56,11 +56,23 @@ const cropToCanvas = (image, canvas, ctx) => {
   );
 };
 
+function getCoordinates(x, y, zoom, center) {
+  const degreesPerPixelX = 360 / Math.pow(2, zoom + 8);
+  const degreesPerPixelY =
+    (360 / Math.pow(2, zoom + 8)) * Math.cos((center.lat * Math.PI) / 180);
+
+  return [
+    center.lat - degreesPerPixelY * (y - 0.5) * process.env.REACT_APP_IMG_SIZE,
+    center.lng + degreesPerPixelX * (x - 0.5) * process.env.REACT_APP_IMG_SIZE,
+  ];
+}
+
 const predictionResultAtom = atom({
   loading: false,
   error: null,
   resilience: null,
   clusters: null,
+  bounds: null,
 });
 export const predictionAtom = atom(
   (get) => get(predictionResultAtom),
@@ -103,6 +115,7 @@ export const predictionAtom = atom(
 
             let resilience = 0;
             let clusters = [[], [], [], []];
+            let bounds = [];
             for (let c = 0; c < valid_detections_data; ++c) {
               const [x1, y1, x2, y2] = boxes_data.slice(c * 4, (c + 1) * 4);
               const boxCenter = [(x1 + x2) / 2, (y1 + y2) / 2];
@@ -136,6 +149,15 @@ export const predictionAtom = atom(
 
               resilience += kmDistance * gamma;
               clusters[classes_data[c]].push(kmDistance);
+              const [south, west] = getCoordinates(x1, y1, zoom, center);
+              const [north, east] = getCoordinates(x2, y2, zoom, center);
+              bounds.push({
+                cluster: classes_data[c],
+                north,
+                south,
+                east,
+                west,
+              });
             }
 
             set(predictionResultAtom, {
@@ -143,6 +165,7 @@ export const predictionAtom = atom(
               error: null,
               resilience,
               clusters,
+              bounds,
             });
           });
         };
