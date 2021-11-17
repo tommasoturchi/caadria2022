@@ -100,13 +100,14 @@ function Map(props) {
         </Autocomplete>
         {!loading &&
           bounds != null &&
-          bounds.map(({ cluster, ...bound }) => (
+          bounds.map(({ cluster, score, ...bound }, id) => (
             <Rectangle
+              key={`rect${id}`}
               options={{
                 strokeColor: ["#333333", "#127852", "#A7002D", "#A3A901"][
                   cluster
                 ],
-                strokeOpacity: 0.8,
+                strokeOpacity: score,
                 strokeWeight: 2,
                 fillColor: ["#333333", "#127852", "#A7002D", "#A3A901"][
                   cluster

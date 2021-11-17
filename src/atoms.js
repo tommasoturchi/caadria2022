@@ -106,8 +106,9 @@ export const predictionAtom = atom(
           );
 
           model.executeAsync(input).then((res) => {
-            const [boxes, , classes, valid_detections] = res;
+            const [boxes, scores, classes, valid_detections] = res;
             const boxes_data = boxes.dataSync();
+            const scores_data = scores.dataSync();
             const classes_data = classes.dataSync();
             const valid_detections_data = valid_detections.dataSync()[0];
 
@@ -153,6 +154,7 @@ export const predictionAtom = atom(
               const [north, east] = getCoordinates(x2, y2, zoom, center);
               bounds.push({
                 cluster: classes_data[c],
+                score: scores_data[c],
                 north,
                 south,
                 east,

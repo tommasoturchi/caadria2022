@@ -16,7 +16,7 @@ const InfoBox = styled(Paper)(({ theme }) => ({
 }));
 
 export function Prediction() {
-  const [{ resilience, clusters }] = useAtom(predictionAtom);
+  const [{ resilience, clusters, bounds }] = useAtom(predictionAtom);
 
   return (
     <>
@@ -31,11 +31,23 @@ export function Prediction() {
               }`}
             </Typography>
             <Typography variant="subtitle2" component="div" color="primary">
+              {bounds
+                .filter(({ cluster }) => cluster === 0)
+                .map(({ score }) => score.toFixed(2))
+                .join(", ")}
+            </Typography>
+            <Typography variant="subtitle2" component="div" color="primary">
               {`Green Areas: ${
                 clusters == null || clusters[1].length === 0
                   ? "—"
                   : clusters[1].map((c) => `${c.toFixed(2)}km`).join(", ")
               }`}
+            </Typography>
+            <Typography variant="subtitle2" component="div" color="primary">
+              {bounds
+                .filter(({ cluster }) => cluster === 1)
+                .map(({ score }) => score.toFixed(2))
+                .join(", ")}
             </Typography>
             <Typography variant="subtitle2" component="div" color="primary">
               {`Infrastructures: ${
@@ -45,11 +57,23 @@ export function Prediction() {
               }`}
             </Typography>
             <Typography variant="subtitle2" component="div" color="primary">
+              {bounds
+                .filter(({ cluster }) => cluster === 2)
+                .map(({ score }) => score.toFixed(2))
+                .join(", ")}
+            </Typography>
+            <Typography variant="subtitle2" component="div" color="primary">
               {`Natural Elements: ${
                 clusters == null || clusters[3].length === 0
                   ? "—"
                   : clusters[3].map((c) => `${c.toFixed(2)}km`).join(", ")
               }`}
+            </Typography>
+            <Typography variant="subtitle2" component="div" color="primary">
+              {bounds
+                .filter(({ cluster }) => cluster === 3)
+                .map(({ score }) => score.toFixed(2))
+                .join(", ")}
             </Typography>
           </InfoBox>
         </Box>
