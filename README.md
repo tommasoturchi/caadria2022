@@ -11,7 +11,7 @@
 
 > A Predictive Tool to Measure Resilient Communities
 
-### 🏠 [Homepage](https://caadria2022.netlify.app/)
+### 🏠 [Demo](https://caadria2022.netlify.app/)
 
 ## Install
 
