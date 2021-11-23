@@ -18,6 +18,7 @@ const options = {
   streetViewControl: false,
   fullscreenControl: false,
   mapTypeControl: false,
+  rotateControl: false,
 };
 
 const center = {
