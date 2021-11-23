@@ -1,11 +1,6 @@
 <h1 align="center">Welcome to @tommasoturchi/caadria2022 👋</h1>
 <p>
   <img src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
-  <img src="https://img.shields.io/badge/npm-%3E%3D6.9.0-blue.svg" />
-  <img src="https://img.shields.io/badge/node-%3E%3D10.15.0-blue.svg" />
-  <a href="https://github.com/tommasoturchi/caadria2022#readme">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
-  </a>
   <a href="https://github.com/tommasoturchi/caadria2022/graphs/commit-activity">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" target="_blank" />
   </a>
