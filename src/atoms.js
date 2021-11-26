@@ -181,6 +181,12 @@ export const predictionAtom = atom(
             });
           });
         };
+        img.onerror = function () {
+          set(predictionResultAtom, {
+            loading: false,
+            error: "Error loading image",
+          });
+        };
         img.src = url;
       } catch (error) {
         set(predictionResultAtom, { loading: false, error, result: "—" });
